@@ -6,6 +6,8 @@ var async = require('async');
 
 var pubnub = require('./pubnub_cititalk');
 
+var postgres = require('./query');
+
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
@@ -29,23 +31,27 @@ passport.deserializeUser(function(id_scode, done) {
 
       try{
             var parts = id_scode.split(':::');
-            User.find({'_id':parts[1], 'sCode':parts[0]},{ groupaccesslist:0, invitedlist:0, post_queue:0, grouplist:0, ipaccesslist:0, contactlist:0},function(err, result){
-                //console.log('>>>>>>>>>>'+err);
+
+            var queryText = 'select * from Users where _id = ($1) AND scode = ($2)';
+            var queryText = [ parts[1], parts[0] ];
+
+            postgres.query( queryText, queryText, function(err, rows, result){
+
                 if(err) {
                     //console.log('Error::::OMGOMGOMG');
                     done (err, null);
                   }else if(!result){
                     //console.log('OMGOMGOMG');
-                    done(err, null);
-                  }else if(result.length === 0){
+                    done( err, null);
+                  }else if(rows.length === 0){
                     //console.log('OMGOMGOMG:::Zerolength');
                     done(err, null);                    
                   }else{
                     //console.log('Goooooood:::::OMGOMGOMG::::'+result.length);
-                    done(err, result[0]);
+                    done(err, rows[0]);
                   }
 
-            });
+            });            
 
       }catch(err){
         done(err, null);

@@ -1,7 +1,7 @@
 var pubnub = require("pubnub").init({    
-    publish_key   : 'pub-c-17fb2ba2-2da6-40f7-8f9c-cb73f740645a',
-    subscribe_key : 'sub-c-3704c9b4-5311-11e5-85f6-0619f8945a4f',    
-    uuid:'CityTalkServer'
+    publish_key   : '',
+    subscribe_key : '',    
+    uuid:''
 
 });
 

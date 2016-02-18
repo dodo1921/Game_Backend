@@ -24,7 +24,8 @@
     "pubnub": "*",   
     "request":"*",
     "speakeasy":"*",    
-    "aws-sdk":"*"    
+    "aws-sdk":"*",
+    "node-postgres": "*"    
   },  
   "keywords": [
     "node",
@@ -33,3 +34,4 @@
   ],
   "license": "MIT"
 }
+
