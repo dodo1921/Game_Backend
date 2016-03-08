@@ -8,7 +8,7 @@ module.exports = {
 
 	query : function( queryText, queryValues, cb ){
 
-		pg.connect(function(err, client, release) {
+		pg.connect( connectionstring, function(err, client, release) {
 	     //connection failure
 	     //we don't need to release anything
 	     //because we were never handed a client in this case
