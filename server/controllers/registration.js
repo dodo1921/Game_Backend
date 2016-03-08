@@ -38,7 +38,7 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 				//send sms
 
-				return res.json({ 'success': true });
+				return res.json({ 'success': true , 'id': rows[0].id});
 
 
 			});
@@ -64,7 +64,22 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 					//send sms
 
-					return res.json({ 'success': true });
+					querytext = 'SELECT "id" FROM "Users" where "pno"=($1)';
+
+					values = [ pno ];
+
+					rdbms.query(querytext, values, function(err, rows, result){
+
+						if(err) res.status(500).json({ success: false, data: err});
+
+						if(rows && rows.length == 0) res.status(500).json({ success: false, data: new Error('User does not exist')});
+
+
+						return res.json({ 'success': true,  'id': rows[0].id });
+
+					});
+
+					
 
 					
 				});
