@@ -78,6 +78,8 @@ passport.use(new LocalStrategy({
   passReqToCallback: true
 },function(req, userid, verificationCode, done) { 
 
+    console.log('Here Inside');
+
     var referrer = parseInt(req.body.referrer);
 
     var queryText = 'select * from "Users" where id = ($1)';
@@ -89,7 +91,7 @@ passport.use(new LocalStrategy({
 
         if(rows && rows.length>0){
 
-            if(rows[0].vcode === verificationCode){
+            if( rows[0].vcode === verificationCode ){
 
                 if(referrer){
 
