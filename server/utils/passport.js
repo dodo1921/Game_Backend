@@ -111,7 +111,7 @@ passport.use(new LocalStrategy({
 
                             }
 
-                        }
+                        });
 
 
                     });
