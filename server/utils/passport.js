@@ -100,7 +100,7 @@ passport.use(new LocalStrategy({
 
                 console.log('Here Inside3');
 
-                if(referrer && !rows[0].isRegis){
+                if( referrer && !rows[0].isRegis ){
 
                     process.nextTick(function(referrer, userid){
 
