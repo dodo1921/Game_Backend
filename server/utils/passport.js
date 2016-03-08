@@ -22,7 +22,7 @@ var secrets = require('../config/secrets');
 // -----------------------------------------------------------------------------
 passport.serializeUser(function(user, done) {  
   //console.log('serialize:'+user); 
-  done(null, user.scode+':::'+user.id);
+  done(null, user.scode+':::'+user.id+':::'+user.pno);
 });
 
 passport.deserializeUser(function(id_scode, done) {  
@@ -78,7 +78,7 @@ passport.use(new LocalStrategy({
   passReqToCallback: true
 },function(req, userid, verificationCode, done) { 
 
-    var referrer = req.body.referrer;
+    var referrer = parseInt(req.body.referrer);
 
     var queryText = 'select * from "Users" where id = ($1)';
     var queryValues = [ userid ];

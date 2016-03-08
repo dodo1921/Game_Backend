@@ -28,7 +28,7 @@ Registrar.registerPhoneNumber = function(req, res) {
 			var se = speakeasy.totp({key: 'secret'});
 			querytext = 'UPDATE "Users" SET vcode=($1) WHERE "id"=($2)';
 
-			values = [se, rows[0].id];
+			values = [ se, rows[0].id ];
 
 			rdbms.query(querytext, values, function(err, rows, result){
 
@@ -52,9 +52,9 @@ Registrar.registerPhoneNumber = function(req, res) {
 			//insert
 
 				var se = speakeasy.totp({key: 'secret'});
-				querytext = 'INSERT INTO "Users"( "pno", "vcode", "channel" ) VALUES ( ($1), ($2), ($3))';
+				querytext = 'INSERT INTO "Users"( "pno", "vcode" ) VALUES ( ($1), ($2) )';
 
-				values = [pno, se, pno];
+				values = [ pno, se ];
 
 				rdbms.query(querytext, values, function(err, rows, result){
 
