@@ -106,7 +106,7 @@ Registrar.verifyCode = function(req, res) {
             return res.json({'user': user}); 
         });
 		    
-    })(req, res, next);
+    });
 
 
 }
