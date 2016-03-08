@@ -119,7 +119,7 @@ Registrar.resendVCODE = function(req, res) {
 	var userid = parseInt(req.body.userid);
 
 	var se = speakeasy.totp({key: 'secret'});
-	var querytext = 'UPDATE "Users" SET vcode=($1) WHERE "id"=($2)';
+	var querytext = 'UPDATE "Users" SET "vcode"=($1) WHERE "id"=($2)';
 
 	var values = [se, userid];
 
