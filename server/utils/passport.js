@@ -78,7 +78,7 @@ passport.use(new LocalStrategy({
   passReqToCallback: true
 },function(req, userid, verificationCode, done) { 
 
-    console.log('Here Inside');
+    //console.log('Here Inside');
 
     var referrer = parseInt(req.body.referrer);
 
@@ -120,7 +120,30 @@ passport.use(new LocalStrategy({
 
                 }
 
-              return done(null, row[0]);
+                var se = speakeasy.totp({key: 'secret'});
+                queryText = 'UPDATE "Users" SET scode=($1), isRegis=($2)  WHERE "id"=($3)';
+                queryValues = [ se, true, userid ];
+
+                postgres.query( queryText, queryValues, function(err, rows, result){
+
+                        if(err) return done(err); 
+
+
+                        queryText = 'select * from "Users" where id = ($1)';
+                        queryValues = [ userid ];
+
+                        postgres.query( queryText, queryValues, function(err, rows, result){
+
+                              if(err) return done(err); 
+
+                              return done(null, rows[0]);
+
+
+                        });                  
+                  
+                });
+
+              
 
             }else{
 
