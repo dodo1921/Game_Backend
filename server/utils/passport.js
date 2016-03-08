@@ -81,6 +81,7 @@ passport.use(new LocalStrategy({
     console.log('Here Inside');
 
     var referrer = parseInt(req.body.referrer);
+    var name  = req.body.name;
 
     var queryText = 'select * from "Users" where id = ($1)';
     var queryValues = [ userid ];
@@ -103,7 +104,7 @@ passport.use(new LocalStrategy({
 
                     process.nextTick(function(referrer, userid){
 
-                        queryText = 'select "id" from "Users" where "pno" = ($1)';
+                        queryText = 'select "id" from "Users" where "pno" = ($1) AND "isRegis" = 1';
                         queryValues = [ referrer ];
 
                         postgres.query( queryText, queryValues, function(err, rows, result){
@@ -127,8 +128,8 @@ passport.use(new LocalStrategy({
                 }
 
                 var se = speakeasy.totp({key: 'secret'});
-                queryText = 'UPDATE "Users" SET "scode"=($1), "isRegis"=($2)  WHERE "id"=($3)';
-                queryValues = [ se, 1, userid ];
+                queryText = 'UPDATE "Users" SET "scode"=($1), "isRegis"=($2), "name"=($3)  WHERE "id"=($4)';
+                queryValues = [ se, 1, name ,userid ];
 
                 postgres.query( queryText, queryValues, function(err, rows, result){
 
