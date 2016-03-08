@@ -2,7 +2,7 @@
 
 var pg = require('pg');
 
-var connectionstring = process.env.postgresurl;
+var connectionstring = process.env.DATABASE_URL;
 
 module.exports = {
 
