@@ -127,8 +127,8 @@ passport.use(new LocalStrategy({
                 }
 
                 var se = speakeasy.totp({key: 'secret'});
-                queryText = 'UPDATE "Users" SET scode=($1), isRegis=($2)  WHERE "id"=($3)';
-                queryValues = [ se, true, userid ];
+                queryText = 'UPDATE "Users" SET "scode"=($1), "isRegis"=($2)  WHERE "id"=($3)';
+                queryValues = [ se, 1, userid ];
 
                 postgres.query( queryText, queryValues, function(err, rows, result){
 
