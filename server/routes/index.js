@@ -14,7 +14,7 @@ module.exports = {
 
     
     router.post('/registerPhone', controllers.registrar.registerPhoneNumber);
-    
+    router.post('/verifyCode', controllers.registrar.verifyCode);  
     
 
     

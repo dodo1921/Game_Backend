@@ -4,11 +4,10 @@ var mvc = {};
 mvc.config = require('../../server/config')(__dirname);
 var async = require('async');
 
-var pubnub = require('./pubnub_cititalk');
-
 var postgres = require('./query');
 
 var passport = require('passport');
+
 var LocalStrategy = require('passport-local').Strategy;
 
 
@@ -32,29 +31,23 @@ passport.deserializeUser(function(id_scode, done) {
       try{
             var parts = id_scode.split(':::');
 
-            var queryText = 'select * from Users where _id = ($1) AND scode = ($2)';
-            var queryText = [ parts[1], parts[0] ];
+            var queryText = 'select * from "Users" where id = ($1) AND scode = ($2)';
+            var queryValues = [ parts[1], parts[0] ];
 
-            postgres.query( queryText, queryText, function(err, rows, result){
+            postgres.query( queryText, queryValues, function(err, rows, result){
 
-                if(err) {
-                    //console.log('Error::::OMGOMGOMG');
+                if(err) {                    
                     done (err, null);
-                  }else if(!result){
-                    //console.log('OMGOMGOMG');
-                    done( err, null);
-                  }else if(rows.length === 0){
-                    //console.log('OMGOMGOMG:::Zerolength');
-                    done(err, null);                    
-                  }else{
-                    //console.log('Goooooood:::::OMGOMGOMG::::'+result.length);
+                  }else if(rows && rows.length === 0){
+                    done(new Error('User is not registered.'));                    
+                  }else{                    
                     done(err, rows[0]);
                   }
 
             });            
 
       }catch(err){
-        done(err, null);
+        done(err);
       }
 
 });
@@ -68,10 +61,10 @@ exports.isAuthenticated = function(req, res, next) {
     //console.log('OMGOMGOMG:::ISAuthenticated');
     return next();
 
-  }else{
-        console.log('Auth Error:::'+req.body.chatRoom);
-        //res.json({"Error":"Authentication error"});
-        res.status(403).send({"Error":"Authentication error"});
+  }else{       
+        
+        res.status(403).json({ success: false, data: 'Auth Error'});
+        
     }
 };
 // =============================================================================
@@ -85,7 +78,61 @@ passport.use(new LocalStrategy({
   passReqToCallback: true
 },function(req, userid, verificationCode, done) { 
 
-  
+    var referrer = req.body.referrer;
+
+    var queryText = 'select * from "Users" where id = ($1)';
+    var queryValues = [ userid ];
+
+    postgres.query( queryText, queryValues, function(err, rows, result){
+
+        if(err) return done(err);
+
+        if(rows && rows.length>0){
+
+            if(rows[0].vcode === verificationCode){
+
+                if(referrer){
+
+                    process.nextTick(function(referrer, userid){
+
+                        queryText = 'select "id" from "Users" where "pno" = ($1)';
+                        queryValues = [ referrer ];
+
+                        postgres.query( queryText, queryValues, function(err, rows, result){
+
+                            if( !err && rows && rows.length>0 ){
+
+                                  queryText = 'insert into "Referrals" ("referrerId", "userId") values ( ($1), ($2) ) ';
+                                  queryValues = [ rows[0].id, userid ];
+
+                                  postgres.query( queryText, queryValues, function(err, rows, result){
+
+                                  });
+
+                            }
+
+                        }
+
+
+                    });
+
+                }
+
+              return done(null, row[0]);
+
+            }else{
+
+              return done(new Error('VCODE does not match.'));
+
+            }
+
+        }else{
+
+            return done(new Error('User does not exist.'));
+        }        
+
+    }); 
+
 
 })); 
 

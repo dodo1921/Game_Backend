@@ -2,6 +2,8 @@
 var rdbms  = require('../../server/utils/query');
 var speakeasy = require('speakeasy');
 
+var passport = require('passport');
+
 
 var Registrar = module.exports;
 
@@ -16,7 +18,7 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 	rdbms.query(querytext, values, function(err, rows, result){
 
-		if(err) res.json({'error':'Database Error'});
+		if(err) res.status(500).json({ success: false, data: err});;
 
 		if(rows && rows.length>0){			
 
@@ -30,7 +32,7 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 			rdbms.query(querytext, values, function(err, rows, result){
 
-				if(err) res.json({'error':'Database Error'});
+				if(err) res.status(500).json({ success: false, data: err});
 
 				//send sms
 
@@ -54,7 +56,7 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 				rdbms.query(querytext, values, function(err, rows, result){
 
-					if(err) res.json({'error':'Database Error'});
+					if(err) res.status(500).json({ success: false, data: err});
 
 					//send sms
 
@@ -63,16 +65,29 @@ Registrar.registerPhoneNumber = function(req, res) {
 					
 				});
 
-		}	
-
-		
+		}			
 	
 
-});
-	
-
-	
+	});	
 
 };
+
+
+Registrar.verifyCode = function(req, res) {
+
+
+	passport.authenticate('local', function(err, user, info) {
+        if (err) return res.status(500).json({ success: false, data: err});
+        
+        req.logIn(user, function(err) {      
+            if (err) return res.status(500).json({ success: false, data: err});
+            //console.log(user);
+            return res.json({'user': user}); 
+        });
+		    
+    })(req, res, next);
+
+
+}
 
 
