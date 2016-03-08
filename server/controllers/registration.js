@@ -94,7 +94,8 @@ Registrar.registerPhoneNumber = function(req, res) {
 };
 
 
-Registrar.verifyCode = function(req, res) {
+Registrar.verifyCode = function(req, res, next) {
+
 
 
 	passport.authenticate('local', function(err, user, info) {
@@ -106,7 +107,7 @@ Registrar.verifyCode = function(req, res) {
             return res.json({'user': user}); 
         });
 		    
-    });
+    })(req, res, next);;
 
 
 }
