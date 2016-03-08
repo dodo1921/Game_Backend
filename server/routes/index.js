@@ -13,7 +13,7 @@ module.exports = {
     });
 
     
-    router.get('/registerPhone', controllers.registrar.registerPhoneNumber);
+    router.post('/registerPhone', controllers.registrar.registerPhoneNumber);
     
     
 
