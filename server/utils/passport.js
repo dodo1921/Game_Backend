@@ -22,7 +22,7 @@ var secrets = require('../config/secrets');
 // -----------------------------------------------------------------------------
 passport.serializeUser(function(user, done) {  
   //console.log('serialize:'+user); 
-  done(null, user.sCode+':::'+user._id);
+  done(null, user.scode+':::'+user.id);
 });
 
 passport.deserializeUser(function(id_scode, done) {  

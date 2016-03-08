@@ -34,9 +34,11 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 				if(err) res.status(500).json({ success: false, data: err});
 
+				if(result && result.rowCount == 0 ) res.status(500).json({ success: false, data: new Error('User does not exist')});
+
 				//send sms
 
-				return res.json({'status': 'success' });
+				return res.json({ 'success': true });
 
 
 			});
@@ -50,17 +52,19 @@ Registrar.registerPhoneNumber = function(req, res) {
 			//insert
 
 				var se = speakeasy.totp({key: 'secret'});
-				querytext = 'INSERT INTO "Users"( "pno", "vcode" ) VALUES ( ($1), ($2))';
+				querytext = 'INSERT INTO "Users"( "pno", "vcode", "channel" ) VALUES ( ($1), ($2), ($3))';
 
-				values = [pno, se];
+				values = [pno, se, pno];
 
 				rdbms.query(querytext, values, function(err, rows, result){
 
 					if(err) res.status(500).json({ success: false, data: err});
 
+					if(result && result.rowCount==0 ) res.status(500).json({ success: false, data: new Error('User does not exist')});
+
 					//send sms
 
-					return res.json({'status': 'success' });
+					return res.json({ 'success': true });
 
 					
 				});
@@ -86,6 +90,33 @@ Registrar.verifyCode = function(req, res) {
         });
 		    
     })(req, res, next);
+
+
+}
+
+
+Registrar.resendVCODE = function(req, res) {
+
+
+	var userid = parseInt(req.body.userid);
+
+	var se = speakeasy.totp({key: 'secret'});
+	var querytext = 'UPDATE "Users" SET vcode=($1) WHERE "id"=($2)';
+
+	var values = [se, userid];
+
+	rdbms.query(querytext, values, function(err, rows, result){
+
+		if(err) res.status(500).json({ success: false, data: err});
+
+		if(result && result.rowCount==0 ) res.status(500).json({ success: false, data: new Error('User does not exist')});
+
+		//send sms
+
+		return res.json({'success': true });
+
+
+	});
 
 
 }
