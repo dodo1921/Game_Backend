@@ -25,7 +25,7 @@
     "request":"*",
     "speakeasy":"*",    
     "aws-sdk":"*",
-    "node-postgres": "*"    
+    "pg": "*"    
   },  
   "keywords": [
     "node",
