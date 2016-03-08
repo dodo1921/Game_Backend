@@ -18,7 +18,6 @@ var passport = require('passport');
 // -----------------------------------------------------------------------------
 var mvc = {};
 mvc.config = require('./server/config')(__dirname);
-mvc.models = require('./server/models');
 mvc.utils = require('./server/utils');
 mvc.controllers = require('./server/controllers');
 mvc.routes = require('./server/routes');
