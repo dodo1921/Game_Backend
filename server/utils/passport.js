@@ -93,6 +93,8 @@ passport.use(new LocalStrategy({
 
         if(rows && rows.length>0){
 
+            console.log('vode::'+rows[0].vcode+'::::::'+verificationCode);
+
             if( rows[0].vcode === verificationCode ){
 
                 console.log('Here Inside3');
