@@ -33,7 +33,7 @@ app.set('env', process.env.env || mvc.config.server.env);
 //app.use(cookieParser()); 
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 31104000000 }})); // session secret
+app.use(session({ secret: 'keyboard cat', saveUninitialized: true, resave: true, cookie: { maxAge: 31104000000 }})); // session secret
 app.use(passport.initialize());
 app.use(passport.session());
 
