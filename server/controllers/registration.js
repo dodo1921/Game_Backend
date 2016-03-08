@@ -9,7 +9,9 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 	var pno = parseInt(req.body.pno);
 
-	var querytext = 'SELECT "id", "isRegis", "createdTime" FROM "Users" where "pno"=$1';
+	console.log('PNO::'+pno);
+
+	var querytext = 'SELECT "id", "isRegis", "createdTime" FROM "Users" where "pno"=($1)';
 
 	var values = [pno];
 
