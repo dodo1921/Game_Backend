@@ -36,7 +36,7 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 				if(err) res.status(500).json({ success: false, data: err});
 
-				if(result && result.rowCount == 0 ) res.status(500).json({ success: false, data: new Error('User does not exist')});
+				if(result && result.rowCount == 0 ) res.status(500).json({ success: false, data: { 'error' : 'User does not exist.' }});
 
 				//send sms
 
@@ -62,7 +62,7 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 					if(err) res.status(500).json({ success: false, data: err});
 
-					if(result && result.rowCount==0 ) res.status(500).json({ success: false, data: new Error('User does not exist')});
+					if(result && result.rowCount==0 ) res.status(500).json({ success: false, data: { 'error' : 'User does not exist.' }});
 
 					//send sms
 
@@ -74,7 +74,7 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 						if(err) res.status(500).json({ success: false, data: err});
 
-						if(rows && rows.length == 0) res.status(500).json({ success: false, data: new Error('User does not exist')});
+						if(rows && rows.length == 0) res.status(500).json({ success: false, data: { 'error' : 'User does not exist.' }});
 
 
 						return res.json({ 'success': true,  'id': rows[0].id });
@@ -127,7 +127,7 @@ Registrar.resendVCODE = function(req, res) {
 
 		if(err) res.status(500).json({ success: false, data: err});
 
-		if(result && result.rowCount==0 ) res.status(500).json({ success: false, data: new Error('User does not exist')});
+		if(result && result.rowCount==0 ) res.status(500).json({ success: false, data: { 'error' : 'User does not exist.' }});
 
 		//send sms
 

@@ -39,7 +39,7 @@ passport.deserializeUser(function(id_scode, done) {
                 if(err) {                    
                     done (err, null);
                   }else if(rows && rows.length === 0){
-                    done(new Error('User is not registered.'));                    
+                    done(true);                    
                   }else{                    
                     done(err, rows[0]);
                   }
@@ -157,13 +157,13 @@ passport.use(new LocalStrategy({
 
               console.log('Here Inside6');
 
-              return done(new Error('VCODE does not match.'));
+              return done({ 'error':'VCODE does not match.' });
 
             }
 
         }else{
             console.log('Here Inside7');
-            return done(new Error('User does not exist.'));
+            return done({ 'error' : 'User does not exist.' });
         }        
 
     }); 
