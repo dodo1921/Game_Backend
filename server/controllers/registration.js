@@ -66,7 +66,7 @@ Registrar.registerPhoneNumber = function(req, res) {
 		}	
 
 		
-	}
+	
 
 });
 	
