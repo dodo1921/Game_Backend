@@ -25,6 +25,8 @@ Registrar.registerPhoneNumber = function(req, res) {
 			//create new vcode
 			//Update
 
+			var idd = rows[0].id;
+
 			var se = speakeasy.totp({key: 'secret'});
 			querytext = 'UPDATE "Users" SET vcode=($1) WHERE "id"=($2)';
 
@@ -38,7 +40,7 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 				//send sms
 
-				return res.json({ 'success': true , 'id': rows[0].id});
+				return res.json({ 'success': true , 'id': idd });
 
 
 			});
