@@ -78,7 +78,7 @@ passport.use(new LocalStrategy({
   passReqToCallback: true
 },function(req, userid, verificationCode, done) { 
 
-    //console.log('Here Inside');
+    console.log('Here Inside');
 
     var referrer = parseInt(req.body.referrer);
 
@@ -87,11 +87,15 @@ passport.use(new LocalStrategy({
 
     postgres.query( queryText, queryValues, function(err, rows, result){
 
+        console.log('Here Inside2');
+
         if(err) return done(err);
 
         if(rows && rows.length>0){
 
             if( rows[0].vcode === verificationCode ){
+
+                console.log('Here Inside3');
 
                 if(referrer){
 
@@ -126,18 +130,20 @@ passport.use(new LocalStrategy({
 
                 postgres.query( queryText, queryValues, function(err, rows, result){
 
-                        if(err) return done(err); 
+                        console.log('Here Inside4');
 
+                        if(err) return done(err); 
 
                         queryText = 'select * from "Users" where id = ($1)';
                         queryValues = [ userid ];
 
                         postgres.query( queryText, queryValues, function(err, rows, result){
 
+                              console.log('Here Inside5');
+
                               if(err) return done(err); 
 
                               return done(null, rows[0]);
-
 
                         });                  
                   
@@ -147,12 +153,14 @@ passport.use(new LocalStrategy({
 
             }else{
 
+              console.log('Here Inside6');
+
               return done(new Error('VCODE does not match.'));
 
             }
 
         }else{
-
+            console.log('Here Inside7');
             return done(new Error('User does not exist.'));
         }        
 
