@@ -15,8 +15,12 @@ module.exports = {
     
     router.post('/registerPhone', controllers.registrar.registerPhoneNumber);
     router.post('/verifyCode', controllers.registrar.verifyCode);  
-    router.post('/resendVCODE', controllers.registrar.resendVCODE);  
-    
+    router.post('/resendVCODE', controllers.registrar.resendVCODE); 
+
+    router.post('/getContactByPno', controllers.contact.getContactByPno); 
+    router.post('/getContactById', controllers.contact.getContactById); 
+    router.post('/getContactById', controllers.contact.getContactById);  
+
 
     
 

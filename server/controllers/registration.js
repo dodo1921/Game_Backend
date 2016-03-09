@@ -18,7 +18,7 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 	rdbms.query(querytext, values, function(err, rows, result){
 
-		if(err) res.status(500).json({ success: false, data: err});;
+		if(err) res.status(500).json({ 'success' : false, data: err});
 
 		if(rows && rows.length>0){			
 
@@ -34,13 +34,13 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 			rdbms.query(querytext, values, function(err, rows, result){
 
-				if(err) res.status(500).json({ success: false, data: err});
+				if(err) res.status(500).json({ 'success' : false, data: err});
 
-				if(result && result.rowCount == 0 ) res.status(500).json({ success: false, data: { 'error' : 'User does not exist.' }});
+				if(result && result.rowCount == 0 ) res.status(500).json({ 'success' : false, data: { 'error' : 'User does not exist.' }});
 
 				//send sms
 
-				return res.json({ 'success': true , 'id': idd });
+				return res.json({ 'success' : true , 'id': idd });
 
 
 			});
@@ -60,9 +60,9 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 				rdbms.query(querytext, values, function(err, rows, result){
 
-					if(err) res.status(500).json({ success: false, data: err});
+					if(err) res.status(500).json({ 'success' : false, data: err});
 
-					if(result && result.rowCount==0 ) res.status(500).json({ success: false, data: { 'error' : 'User does not exist.' }});
+					if(result && result.rowCount==0 ) res.status(500).json({ 'success' : false, data: { 'error' : 'User does not exist.' }});
 
 					//send sms
 
@@ -72,12 +72,12 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 					rdbms.query(querytext, values, function(err, rows, result){
 
-						if(err) res.status(500).json({ success: false, data: err});
+						if(err) res.status(500).json({ 'success' : false, data: err});
 
-						if(rows && rows.length == 0) res.status(500).json({ success: false, data: { 'error' : 'User does not exist.' }});
+						if(rows && rows.length == 0) res.status(500).json({ 'success' : false, data: { 'error' : 'User does not exist.' }});
 
 
-						return res.json({ 'success': true,  'id': rows[0].id });
+						return res.json({ 'success' : true,  'id': rows[0].id });
 
 					});
 
@@ -99,12 +99,12 @@ Registrar.verifyCode = function(req, res, next) {
 
 
 	passport.authenticate('local', function(err, user, info) {
-        if (err) return res.status(500).json({ success: false, data: err});
+        if (err) return res.status(500).json({ 'success' : false, data: err});
         
         req.logIn(user, function(err) {      
-            if (err) return res.status(500).json({ success: false, data: err});
+            if (err) return res.status(500).json({ 'success' : false, data: err});
             //console.log(user);
-            return res.json({'user': user}); 
+            return res.json({ 'success' : true, 'user': user}); 
         });
 		    
     })(req, res, next);;
@@ -125,9 +125,9 @@ Registrar.resendVCODE = function(req, res) {
 
 	rdbms.query(querytext, values, function(err, rows, result){
 
-		if(err) res.status(500).json({ success: false, data: err});
+		if(err) res.status(500).json({ 'success' : false, data: err});
 
-		if(result && result.rowCount==0 ) res.status(500).json({ success: false, data: { 'error' : 'User does not exist.' }});
+		if(result && result.rowCount==0 ) res.status(500).json({ 'success' : false, data: { 'error' : 'User does not exist.' }});
 
 		//send sms
 

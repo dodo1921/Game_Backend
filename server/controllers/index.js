@@ -2,7 +2,9 @@
 
 var controllers = module.exports = {
   
-  registrar: require('./registration')
+  registrar: require('./registration'),
+  contact: require('./contact'),
+  group: require('./group')
   
     	
 };
