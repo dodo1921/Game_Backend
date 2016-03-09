@@ -84,8 +84,14 @@ Contact.inviteUser = function(req, res) {
 
 			//send sms for invite
 
-			return res.json({ 'success': true })
+			querytext = 'UPDATE "Users" SET "inviteCount"= "inviteCount" + 1 WHERE "id"=($1)';
 
+			values = [req.user.id];
+
+			rdbms.query(querytext, values, function(err, rows, result){});
+
+			return res.json({ 'success': true });
+			
 
 		}else if(rows && rows.length>0){
 

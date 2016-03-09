@@ -28,7 +28,7 @@ Registrar.registerPhoneNumber = function(req, res) {
 			var idd = rows[0].id;
 
 			var se = speakeasy.totp({key: 'secret'});
-			querytext = 'UPDATE "Users" SET vcode=($1) WHERE "id"=($2)';
+			querytext = 'UPDATE "Users" SET "vcode"=($1) WHERE "id"=($2)';
 
 			values = [ se, rows[0].id ];
 

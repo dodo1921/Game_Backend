@@ -21,7 +21,7 @@ var secrets = require('../config/secrets');
 // User Serialiation -----------------------------------------------------------
 // -----------------------------------------------------------------------------
 passport.serializeUser(function(user, done) {  
-  //console.log('serialize:'+user); 
+  console.log('serialize:'+user.scode+':'+user.id+':'+user.pno); 
   done(null, user.scode+':::'+user.id+':::'+user.pno);
 });
 
