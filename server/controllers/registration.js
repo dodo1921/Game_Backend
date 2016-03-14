@@ -116,7 +116,7 @@ Registrar.verifyCode = function(req, res, next) {
 Registrar.resendVCODE = function(req, res) {
 
 
-	var userid = parseInt(req.body.userid);
+	var userid = parseInt(req.body.userId);
 
 	var se = speakeasy.totp({key: 'secret'});
 	var querytext = 'UPDATE "Users" SET "vcode"=($1) WHERE "id"=($2)';
