@@ -116,12 +116,15 @@ passport.use(new LocalStrategy({
 
                             if( !err && rows && rows.length>0 ){
 
-                                  queryText = 'insert into "Referrals" ("referrerId", "userId") values ( ($1), ($2) ) ';
-                                  queryValues = [ rows[0].id, userId ];
+                                  if(rows[0].id != userId ){
 
-                                  postgres.query( queryText, queryValues, function(err, rows, result){
+                                      queryText = 'insert into "Referrals" ("referrerId", "userId") values ( ($1), ($2) ) ';
+                                      queryValues = [ rows[0].id, userId ];
 
-                                  });
+                                      postgres.query( queryText, queryValues, function(err, rows, result){
+
+                                      });
+                                  }
 
                             }
 
