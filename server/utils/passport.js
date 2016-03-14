@@ -73,18 +73,23 @@ exports.isAuthenticated = function(req, res, next) {
 
 
 passport.use(new LocalStrategy({
-  usernameField: 'userid',
+  usernameField: 'userId',
   passwordField: 'verificationCode',
   passReqToCallback: true
-},function(req, userid, verificationCode, done) { 
+},function(req, userId, verificationCode, done) { 
 
     console.log('Here Inside');
 
-    var referrer = parseInt(req.body.referrer);
+    verificationCode = parseInt(verificationCode);
+    userId = parseInt(userId);
+
+    var referrer;
+    if(req.body.referrer) 
+      referrer = parseInt(req.body.referrer);
     var name  = req.body.name;
 
     var queryText = 'select * from "Users" where id = ($1)';
-    var queryValues = [ userid ];
+    var queryValues = [ userId ];
 
     postgres.query( queryText, queryValues, function(err, rows, result){
 
@@ -102,7 +107,7 @@ passport.use(new LocalStrategy({
 
                 if( referrer && !rows[0].isRegis ){
 
-                    process.nextTick(function(referrer, userid){
+                    process.nextTick(function(referrer, userId){
 
                         queryText = 'select "id" from "Users" where "pno" = ($1) AND "isRegis" = 1';
                         queryValues = [ referrer ];
@@ -112,7 +117,7 @@ passport.use(new LocalStrategy({
                             if( !err && rows && rows.length>0 ){
 
                                   queryText = 'insert into "Referrals" ("referrerId", "userId") values ( ($1), ($2) ) ';
-                                  queryValues = [ rows[0].id, userid ];
+                                  queryValues = [ rows[0].id, userId ];
 
                                   postgres.query( queryText, queryValues, function(err, rows, result){
 
@@ -129,7 +134,7 @@ passport.use(new LocalStrategy({
 
                 var se = speakeasy.totp({key: 'secret'});
                 queryText = 'UPDATE "Users" SET "scode"=($1), "isRegis"=($2), "name"=($3)  WHERE "id"=($4)';
-                queryValues = [ se, 1, name ,userid ];
+                queryValues = [ se, 1, name ,userId ];
 
                 postgres.query( queryText, queryValues, function(err, rows, result){
 
@@ -138,7 +143,7 @@ passport.use(new LocalStrategy({
                         if(err) return done(err); 
 
                         queryText = 'select * from "Users" where id = ($1)';
-                        queryValues = [ userid ];
+                        queryValues = [ userId ];
 
                         postgres.query( queryText, queryValues, function(err, rows, result){
 

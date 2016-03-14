@@ -36,7 +36,7 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 				if(err) res.status(500).json({ 'success' : false, data: err});
 
-				if(result && result.rowCount == 0 ) res.status(500).json({ 'success' : false, data: { 'error' : 'User does not exist.' }});
+				if(result && result.rowCount == 0 ) res.status(500).json({ 'success' : false, data: 'User does not exist.' });
 
 				//send sms
 
@@ -62,7 +62,7 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 					if(err) res.status(500).json({ 'success' : false, data: err});
 
-					if(result && result.rowCount==0 ) res.status(500).json({ 'success' : false, data: { 'error' : 'User does not exist.' }});
+					if(result && result.rowCount==0 ) res.status(500).json({ 'success' : false, data: 'User does not exist.' });
 
 					//send sms
 
@@ -74,7 +74,7 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 						if(err) res.status(500).json({ 'success' : false, data: err});
 
-						if(rows && rows.length == 0) res.status(500).json({ 'success' : false, data: { 'error' : 'User does not exist.' }});
+						if(rows && rows.length == 0) res.status(500).json({ 'success' : false, data:'User does not exist.' });
 
 
 						return res.json({ 'success' : true,  'id': rows[0].id });
@@ -104,13 +104,13 @@ Registrar.verifyCode = function(req, res, next) {
         req.logIn(user, function(err) {      
             if (err) return res.status(500).json({ 'success' : false, data: err});
             //console.log(user);
-            return res.json({ 'success' : true, 'user': user}); 
+            return res.json({ 'success' : true, 'request': 'verifyCode', 'user': user}); 
         });
 		    
     })(req, res, next);;
 
 
-}
+};
 
 
 Registrar.resendVCODE = function(req, res) {
@@ -127,16 +127,16 @@ Registrar.resendVCODE = function(req, res) {
 
 		if(err) res.status(500).json({ 'success' : false, data: err});
 
-		if(result && result.rowCount==0 ) res.status(500).json({ 'success' : false, data: { 'error' : 'User does not exist.' }});
+		if(result && result.rowCount==0 ) res.status(500).json({ 'success' : false, data: 'User does not exist.' });
 
 		//send sms
 
-		return res.json({'success': true });
+		return res.json({'success': true, 'request': 'resendVCODE' });
 
 
 	});
 
 
-}
+};
 
 
