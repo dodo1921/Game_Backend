@@ -7,7 +7,7 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
-var passport = require('passport');
+//var passport = require('passport');
 
 
 
@@ -24,6 +24,7 @@ mvc.routes = require('./server/routes');
 // =============================================================================
 
 
+
 var app = express();
 
 app.set('port', process.env.PORT || mvc.config.server.port);
@@ -34,8 +35,8 @@ app.set('env', process.env.env || mvc.config.server.env);
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({ secret: 'keyboard cat', saveUninitialized: true, resave: true, cookie: { maxAge: 31104000000 }})); // session secret
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(mvc.utils.passport.initialize());
+app.use(mvc.utils.passport.session());
 
 
 app.disable('x-powered-by');
@@ -50,7 +51,7 @@ var router = express.Router();
 //==============================================================================
 // Initialize the routes in app ------------------------------------------------
 // -----------------------------------------------------------------------------
-mvc.routes.loadRoutes(router, mvc.utils, mvc.controllers, passport);
+mvc.routes.loadRoutes(router, mvc.utils, mvc.controllers);
 // =============================================================================
 
 app.use(router);

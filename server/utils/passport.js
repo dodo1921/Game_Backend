@@ -15,7 +15,7 @@ var speakeasy = require('speakeasy');
 
 var secrets = require('../config/secrets');
 
-
+module.exports = passport;
 
 // =============================================================================
 // User Serialiation -----------------------------------------------------------

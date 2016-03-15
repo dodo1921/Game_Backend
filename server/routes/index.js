@@ -2,7 +2,7 @@
 
 module.exports = {
 
-  loadRoutes: function(router, utils, controllers, passport) {
+  loadRoutes: function(router, utils, controllers) {
 
     var isAuthenticated = utils.passport.isAuthenticated;
     
