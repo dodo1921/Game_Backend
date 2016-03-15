@@ -26,7 +26,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id_scode, done) {  
-      //console.log('deserialize'+id_scode); 
+      console.log('deserialize'+id_scode); 
 
       try{
             var parts = id_scode.split(':::');
