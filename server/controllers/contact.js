@@ -33,7 +33,7 @@ Contact.getContactByPno = function(req, res) {
 
 
 
-}
+};
 
 
 Contact.getContactById = function(req, res) {
@@ -64,7 +64,7 @@ Contact.getContactById = function(req, res) {
 	});
 
 
-}
+};
 
 
 
@@ -103,7 +103,35 @@ Contact.inviteUser = function(req, res) {
 
 	});
 
+};
 
+
+
+Contact.updateGcmToken = function(req, res) {
+
+	var token = req.body.gcm_token;
+
+	var querytext = 'UPDATE "Users" SET "gcmtoken"= ($1) WHERE "id"=($2)';
+
+	var values = [token, req.user.id];
+
+	rdbms.query(querytext, values, function(err, rows, result){
+
+		if(err) res.status(500).json({ 'success' : false, data: err});
+
+		if(result && result.rowCount == 0 ) res.status(500).json({ 'success' : false, data: 'Token not updated' });
+
+		//send sms
+
+		return res.json({ 'success' : true });
+
+	});
 
 
 }
+
+
+
+
+
+

@@ -19,7 +19,8 @@ module.exports = {
 
     router.post('/getContactByPno', controllers.contact.getContactByPno); 
     router.post('/getContactById', controllers.contact.getContactById); 
-    router.post('/getContactById', controllers.contact.getContactById);  
+    router.post('/inviteUser', controllers.contact.inviteUser);  
+    router.post('/updateGcmToken', controllers.contact.updateGcmToken);  
 
 
     
