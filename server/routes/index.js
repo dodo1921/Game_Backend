@@ -4,7 +4,17 @@ module.exports = {
 
   loadRoutes: function(router, utils, controllers) {
 
-    var isAuthenticated = utils.passport.isAuthenticated;
+    var isAuthenticated = function(req, res, next) {
+													  if (req.isAuthenticated()){ 
+													    //console.log('OMGOMGOMG:::ISAuthenticated');
+													    return next();
+
+													  }else{       
+													        
+													        res.status(403).json({ success: false, data: 'Auth Error'});
+													        
+													    }
+													};
     
     router.get('/', function(req, res) {   
 

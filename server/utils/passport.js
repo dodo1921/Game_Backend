@@ -15,7 +15,7 @@ var speakeasy = require('speakeasy');
 
 var secrets = require('../config/secrets');
 
-module.exports = passport;
+
 
 // =============================================================================
 // User Serialiation -----------------------------------------------------------
@@ -56,6 +56,7 @@ passport.deserializeUser(function(id_scode, done) {
 // =============================================================================
 // Signin Required middleware --------------------------------------------------
 // -----------------------------------------------------------------------------
+/*
 exports.isAuthenticated = function(req, res, next) {
   if (req.isAuthenticated()){ 
     //console.log('OMGOMGOMG:::ISAuthenticated');
@@ -69,7 +70,7 @@ exports.isAuthenticated = function(req, res, next) {
 };
 // =============================================================================
 
-
+*/
 
 
 passport.use(new LocalStrategy({
@@ -181,6 +182,5 @@ passport.use(new LocalStrategy({
 })); 
 
   
-    
-
+module.exports = passport;
  
