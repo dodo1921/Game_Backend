@@ -16,7 +16,7 @@ Contact.getContactByPno = function(req, res) {
 
 		if(err) res.status(500).json({ 'success': false, data: err});
 
-		if( (rows && rows.length == 0) || !rows){
+		if( rows && rows.length == 0){
 
 			res.status(500).json({ 'success' : false, data: 'User does not exist' });
 
@@ -48,7 +48,7 @@ Contact.getContactById = function(req, res) {
 
 		if(err) res.status(500).json({ 'success': false, data: err});
 
-		if( (rows && rows.length == 0) || !rows){
+		if( rows && rows.length == 0){
 
 			res.status(500).json({ 'success' : false, data: 'User does not exist' });
 
@@ -80,7 +80,7 @@ Contact.inviteUser = function(req, res) {
 
 		if(err) res.status(500).json({ 'success': false, data: err});
 
-		if( (rows && rows.length == 0) || !rows){
+		if( rows && rows.length == 0){
 
 			//send sms for invite
 
