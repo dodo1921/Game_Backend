@@ -27,7 +27,7 @@ Registrar.registerPhoneNumber = function(req, res) {
 
 			var idd = rows[0].id;
 
-			var se = speakeasy.totp({key: 'secret'});
+			var se = speakeasy.totp({secret: 'secret'});
 			querytext = 'UPDATE "Users" SET "vcode"=($1) WHERE "id"=($2)';
 
 			values = [ se, rows[0].id ];
@@ -53,7 +53,7 @@ Registrar.registerPhoneNumber = function(req, res) {
 			//create new vcode
 			//insert
 
-				var se = speakeasy.totp({key: 'secret'});
+				var se = speakeasy.totp({ secret: 'secret'});
 				querytext = 'INSERT INTO "Users"( "pno", "vcode" ) VALUES ( ($1), ($2) )';
 
 				values = [ pno, se ];
@@ -118,7 +118,7 @@ Registrar.resendVCODE = function(req, res) {
 
 	var userid = parseInt(req.body.userId);
 
-	var se = speakeasy.totp({key: 'secret'});
+	var se = speakeasy.totp({ secret: 'secret'});
 	var querytext = 'UPDATE "Users" SET "vcode"=($1) WHERE "id"=($2)';
 
 	var values = [se, userid];
