@@ -7,7 +7,7 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var bodyParser   = require('body-parser');
-var session      = require('express-session');
+var expsession      = require('express-session');
 //var passport = require('passport');
 
 
@@ -35,7 +35,7 @@ app.set('env', process.env.env || mvc.config.server.env);
 app.use(cookieParser()); 
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(session({ secret: 'keyboard cat', saveUninitialized: true, resave: true, cookie: { maxAge: 31104000000 }})); // session secret
+app.use(expsession({ secret: 'keyboard cat', saveUninitialized: true, resave: true, cookie: { maxAge: 31104000000 }})); // session secret
 
 //app.use(cookieSession(mvc.config.secrets.session, {'maxAge': 31104000000}));
 app.use(mvc.utils.passport.initialize());
