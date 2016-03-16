@@ -35,9 +35,9 @@ app.set('env', process.env.env || mvc.config.server.env);
 app.use(cookieParser()); 
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(expsession({ secret: 'keyboard cat', saveUninitialized: true, resave: true, cookie: { maxAge: 31104000000 }})); // session secret
+app.use(expsession({ secret: 'keyboard cat', saveUninitialized: true, resave: true, cookie: { maxAge: 31104000000 }})); // session secret
 
-app.use(cookieSession({name:'session', maxAge:31104000000, keys:['keyboard cat']}));
+//app.use(cookieSession({name:'session', maxAge:31104000000, keys:['keyboard cat']}));
 app.use(mvc.utils.passport.initialize());
 app.use(mvc.utils.passport.session());
 
