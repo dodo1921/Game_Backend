@@ -2,35 +2,25 @@
 
 module.exports = {
 
-  loadRoutes: function(router, utils, controllers) {
+  loadRoutes: function(app, utils, controllers, passport) {
 
-    var isAuthenticated = function(req, res, next) {
-													  if (req.isAuthenticated()){ 
-													    //console.log('OMGOMGOMG:::ISAuthenticated');
-													    return next();
-
-													  }else{       
-													        
-													        res.status(403).json({ success: false, data: 'Auth Error'});
-													        
-													    }
-													};
+    var isAuthenticated = utils.passport.isAuthenticated;
     
-    router.get('/', function(req, res) {   
+    app.get('/', function(req, res) {   
 
       return res.json({"status":"success"});
 
     });
 
     
-    router.post('/registerPhone', controllers.registrar.registerPhoneNumber);
-    router.post('/verifyCode', controllers.registrar.verifyCode);  
-    router.post('/resendVCODE', controllers.registrar.resendVCODE); 
+    app.post('/registerPhone', controllers.registrar.registerPhoneNumber);
+    app.post('/verifyCode', controllers.registrar.verifyCode);  
+    app.post('/resendVCODE', controllers.registrar.resendVCODE); 
 
-    router.post('/getContactByPno', isAuthenticated,  controllers.contact.getContactByPno); 
-    router.post('/getContactById', isAuthenticated, controllers.contact.getContactById); 
-    router.post('/inviteUser', isAuthenticated, controllers.contact.inviteUser);  
-    router.post('/updateGcmToken', isAuthenticated , controllers.contact.updateGcmToken);  
+    app.post('/getContactByPno', isAuthenticated ,  controllers.contact.getContactByPno); 
+    app.post('/getContactById', isAuthenticated, controllers.contact.getContactById); 
+    app.post('/inviteUser', isAuthenticated, controllers.contact.inviteUser);  
+    app.post('/updateGcmToken', isAuthenticated , controllers.contact.updateGcmToken);  
 
 
     

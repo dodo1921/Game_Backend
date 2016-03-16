@@ -4,11 +4,7 @@
 // Module Dependencies ---------------------------------------------------------
 // -----------------------------------------------------------------------------
 var express = require('express');
-var cookieParser = require('cookie-parser');
-var cookieSession = require('cookie-session');
-var bodyParser   = require('body-parser');
-var expsession      = require('express-session');
-//var passport = require('passport');
+var passport = require('passport');
 
 
 
@@ -32,32 +28,40 @@ app.set('port', process.env.PORT || mvc.config.server.port);
 app.set('env', process.env.env || mvc.config.server.env);
 
 
-app.use(cookieParser()); 
-app.use(bodyParser.json()); 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(expsession({ secret: 'keyboard cat', saveUninitialized: true, resave: true, cookie: { maxAge: 31104000000 }})); // session secret
+app.use(express.bodyParser());
+app.use(express.json());
 
-//app.use(cookieSession({name:'session', maxAge:31104000000, keys:['keyboard cat']}));
-app.use(mvc.utils.passport.initialize());
-app.use(mvc.utils.passport.session());
+app.use(express.urlencoded());
+//app.use(expressValidator());
+app.use(express.methodOverride());
 
+// =============================================================================
 
+// kill the good for nothing spy
 app.disable('x-powered-by');
 
+// =============================================================================
+// Session etc -----------------------------------------------------------------
+// -----------------------------------------------------------------------------
+app.use(express.cookieParser());
+app.use(express.cookieSession(mvc.config.secrets.session, {'maxAge': 31104000000}));
 
-//app.use(app.router);
 
-var router = express.Router();
+app.use(passport.initialize());
+app.use(passport.session());
 
+app.use(app.router);
 
+// development only
+if ('development' == app.get('env')) {
+  app.use(express.errorHandler());
+}
 
 //==============================================================================
 // Initialize the routes in app ------------------------------------------------
 // -----------------------------------------------------------------------------
-mvc.routes.loadRoutes(router, mvc.utils, mvc.controllers);
+mvc.routes.loadRoutes(app, mvc.utils, mvc.controllers, passport);
 // =============================================================================
-
-app.use(router);
 
 /**
  * Start Express server.
@@ -66,8 +70,7 @@ app.listen(app.get('port'), function() {
   console.log("✔ Express server listening on port %d in %s mode", app.get('port'), app.settings.env);
 });
 
-//var pn = mvc.utils.pubnub;
-//pn.initialize();
+
 
 
 module.exports = app;
