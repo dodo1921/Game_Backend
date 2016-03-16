@@ -27,9 +27,9 @@ module.exports = {
     router.post('/verifyCode', controllers.registrar.verifyCode);  
     router.post('/resendVCODE', controllers.registrar.resendVCODE); 
 
-    router.post('/getContactByPno', controllers.contact.getContactByPno); 
-    router.post('/getContactById', controllers.contact.getContactById); 
-    router.post('/inviteUser', controllers.contact.inviteUser);  
+    router.post('/getContactByPno', isAuthenticated,  controllers.contact.getContactByPno); 
+    router.post('/getContactById', isAuthenticated, controllers.contact.getContactById); 
+    router.post('/inviteUser', isAuthenticated, controllers.contact.inviteUser);  
     router.post('/updateGcmToken', isAuthenticated , controllers.contact.updateGcmToken);  
 
 
