@@ -2,7 +2,7 @@
 var rdbms  = require('../../server/utils/query');
 var speakeasy = require('speakeasy');
 
-var passport = require('../../server/utils/passport');
+var passport = require('passport');
 
 
 var Registrar = module.exports;
