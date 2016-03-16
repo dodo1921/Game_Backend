@@ -30,7 +30,7 @@ module.exports = {
     router.post('/getContactByPno', controllers.contact.getContactByPno); 
     router.post('/getContactById', controllers.contact.getContactById); 
     router.post('/inviteUser', controllers.contact.inviteUser);  
-    router.post('/updateGcmToken', controllers.contact.updateGcmToken);  
+    router.post('/updateGcmToken', isAuthenticated , controllers.contact.updateGcmToken);  
 
 
     
