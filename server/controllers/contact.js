@@ -8,7 +8,7 @@ Contact.getContactByPno = function(req, res) {
 
 	var pno = parseInt(req.body.pno);
 
-	var querytext = 'SELECT * FROM "Users" where "pno"=($1) AND "isRegis" = 1';
+	var querytext = 'SELECT * FROM "Users" where "pno"=($1) AND "isRegis" = TRUE';
 
 	var values = [pno];
 
@@ -40,7 +40,7 @@ Contact.getContactById = function(req, res) {
 
 	var idd = parseInt(req.body.idd);
 
-	var querytext = 'SELECT * FROM "Users" where "id"=($1) AND "isRegis" = 1';
+	var querytext = 'SELECT * FROM "Users" where "id"=($1) AND "isRegis" = TRUE';
 
 	var values = [idd];
 
