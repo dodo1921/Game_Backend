@@ -18,7 +18,7 @@ Contact.getContactByPno = function(req, res) {
 
 		if( (rows && rows.length == 0) || !rows){
 
-			return res.status(500).json({ 'success' : false, data: { 'error': 'User does not exist' } });
+			return res.status(500).json({ 'success' : false, data: 'User does not exist' });
 
 
 		}else if(rows && rows.length>0){
@@ -50,7 +50,7 @@ Contact.getContactById = function(req, res) {
 
 		if( (rows && rows.length == 0) || !rows){
 
-			return res.status(500).json({ 'success' : false, data: { 'error': 'User does not exist' } });
+			return res.status(500).json({ 'success' : false, data: 'User does not exist' });
 
 
 		}else if(rows && rows.length>0){
