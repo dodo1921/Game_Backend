@@ -39,7 +39,7 @@ passport.deserializeUser(function(id_scode, done) {
                 if(err) {                    
                     done (err, null);
                   }else if(rows && rows.length === 0){
-                    done(true);                    
+                    done(err, null);                    
                   }else{                    
                     done(err, rows[0]);
                   }
@@ -136,7 +136,7 @@ passport.use(new LocalStrategy({
 
                 }
 
-                var se = speakeasy.totp({key: 'secret'});
+                var se = speakeasy.totp({secret: 'secret'});
                 queryText = 'UPDATE "Users" SET "scode"=($1), "isRegis"=($2), "name"=($3)  WHERE "id"=($4)';
                 queryValues = [ se, 1, name ,userId ];
 
