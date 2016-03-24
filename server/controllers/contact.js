@@ -62,6 +62,8 @@ Contact.getContactById = function(req, res) {
 
 };
 
+
+
 Contact.getGameState = function(req, res) {
 
 	
@@ -137,7 +139,7 @@ Contact.inviteUser = function(req, res) {
 
 	var pno = parseInt(req.body.pno);
 
-	var querytext = 'SELECT * FROM "Users" where "pno"=($1) AND "isRegis" = 1';
+	var querytext = 'SELECT * FROM "Users" where "pno"=($1) AND "isRegis" = TRUE';
 
 	var values = [pno];
 

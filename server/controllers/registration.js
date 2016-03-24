@@ -99,12 +99,12 @@ Registrar.verifyCode = function(req, res, next) {
 
 
 	passport.authenticate('local', function(err, user, info) {
-        if (err) return res.status(500).json({ 'success' : false, data: err});
+        if (err) res.status(500).json({ 'success' : false, data: err});
         
         req.logIn(user, function(err) {      
-            if (err) return res.status(500).json({ 'success' : false, data: err});
+            if (err) res.status(500).json({ 'success' : false, data: err});
             //console.log(user);
-            return res.json({ 'success' : true, 'request': 'verifyCode', 'user': user}); 
+            return res.json({ 'success' : true, 'request': 'verifyCode', 'user': user, 'groups': info}); 
         });
 		    
     })(req, res, next);;

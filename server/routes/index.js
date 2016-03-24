@@ -26,6 +26,9 @@ module.exports = {
     app.post('/updateGcmToken', isAuthenticated , controllers.contact.updateGcmToken);  
 
 
+     app.get('/getGroupsList', isAuthenticated , controllers.group.getGroupsList);  
+
+
     
 
     

@@ -159,7 +159,7 @@ passport.use(new LocalStrategy({
 
                               if(err) return done(err); 
 
-                              return done(null, rows[0]);
+                              return done(null, rows[0]);                            
 
                         });                  
                   
