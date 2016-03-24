@@ -104,7 +104,7 @@ passport.use(new LocalStrategy({
 
             if( rows[0].vcode === verificationCode ){
 
-                console.log('Here Inside3');
+                console.log('Here Inside3:::'+referrer+':::'+rows[0].isRegis);
 
                 if( referrer && !rows[0].isRegis ){
 
@@ -114,6 +114,8 @@ passport.use(new LocalStrategy({
                         queryValues = [ referrer ];
 
                         postgres.query( queryText, queryValues, function(err, rows, result){
+
+                            console.log('Inside Here9:::'+userId+'::'+referrer);
 
                             if( !err && rows && rows.length>0 ){
 
