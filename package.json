@@ -17,8 +17,7 @@
     "passport-local": "~1.0.0",
     "passport": "~0.2.0",        
     "request": "~2.34.0",    
-    "moment": "~2.6.0",      
-    "request":"*",
+    "moment": "~2.6.0",  
     "speakeasy":"*",    
     "aws-sdk":"*",
     "pg": "*"    

@@ -110,7 +110,7 @@ passport.use(new LocalStrategy({
 
                     process.nextTick(function(referrer, userId){
 
-                        queryText = 'select "id" from "Users" where "pno" = ($1) AND "isRegis" = 1';
+                        queryText = 'select "id" from "Users" where "pno" = ($1) AND "isRegis" = TRUE';
                         queryValues = [ referrer ];
 
                         postgres.query( queryText, queryValues, function(err, rows, result){

@@ -19,6 +19,9 @@ module.exports = {
 
     app.post('/getContactByPno', isAuthenticated ,  controllers.contact.getContactByPno); 
     app.post('/getContactById', isAuthenticated, controllers.contact.getContactById); 
+    app.get('/getGameState', isAuthenticated, controllers.contact.getGameState); 
+    app.post('/getContactsByPhoneNumberList', isAuthenticated, controllers.contact.getContactsByPhoneNumberList); 
+    app.post('/getContactsByIDList', isAuthenticated, controllers.contact.getContactsByIDList); 
     app.post('/inviteUser', isAuthenticated, controllers.contact.inviteUser);  
     app.post('/updateGcmToken', isAuthenticated , controllers.contact.updateGcmToken);  
 

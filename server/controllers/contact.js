@@ -25,13 +25,9 @@ Contact.getContactByPno = function(req, res) {
 
 			return res.json({ 'success': true, 'user': rows[0] })
 
-		}		
-
-
+		}	
 
 	});
-
-
 
 };
 
@@ -63,6 +59,75 @@ Contact.getContactById = function(req, res) {
 
 	});
 
+
+};
+
+Contact.getGameState = function(req, res) {
+
+	
+
+	//var querytext = 'SELECT "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h"  FROM "Users" where "id"=($1)';
+
+	return res.json({ 'success': true, 'user': req.user });
+
+
+};
+
+
+Contact.getContactsByPhoneNumberList = function(req, res) {
+
+	var phoneNumberList = req.body.phoneNumberList;
+
+	var params = [];
+	for(var i = 1; i <= phoneNumberList.length; i++) {
+	  params.push('$' + i);
+	}
+
+	var querytext = 'SELECT "id", "pno", "name", "gcmtoken", "image_current", "image_seq","status_msg" FROM "Users" where "pno" IN ('+ params.join(',') + ') AND "isRegis" = TRUE';	
+
+	rdbms.query(querytext, phoneNumberList, function(err, rows, result){
+
+		if(err) res.status(500).json({ 'success': false, data: err});
+
+		if(rows){
+
+			return res.json({ 'success': true, 'user': rows })
+
+		}else{
+			
+			res.status(500).json({ 'success': false });
+		}
+
+	});
+
+};
+
+
+Contact.getContactsByIDList = function(req, res) {
+
+	var idList = req.body.idList;
+
+	var params = [];
+	for(var i = 1; i <= idList.length; i++) {
+	  params.push('$' + i);
+	}
+
+	var querytext = 'SELECT "id", "pno", "name", "gcmtoken", "image_current", "image_seq","status_msg" FROM "Users" where "id" IN ('+ params.join(',') + ') ';	
+
+	rdbms.query(querytext, idList, function(err, rows, result){
+
+		if(err) res.status(500).json({ 'success': false, data: err});
+
+		if(rows){
+
+			return res.json({ 'success': true, 'user': rows })
+
+		}else{
+			
+			res.status(500).json({ 'success': false });
+		}
+
+	});
 
 };
 
