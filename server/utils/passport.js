@@ -108,7 +108,7 @@ passport.use(new LocalStrategy({
 
                 if( referrer && !rows[0].isRegis ){
 
-                    process.nextTick(function(referrer, userId){
+                    process.nextTick(function(){
 
                         queryText = 'select "id" from "Users" where "pno" = ($1) AND "isRegis" = TRUE';
                         queryValues = [ referrer ];
@@ -125,6 +125,8 @@ passport.use(new LocalStrategy({
                                       queryValues = [ rows[0].id, userId ];
 
                                       postgres.query( queryText, queryValues, function(err, rows, result){
+
+                                        console.log('Inside Here 10:::');
 
                                       });
                                   }
