@@ -5,4 +5,5 @@ var utils = module.exports = {
   query: require('./query'),
   levels: require('./levels'),
   bonus: require('./bonus')
+  
 };

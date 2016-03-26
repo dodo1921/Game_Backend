@@ -26,7 +26,13 @@ module.exports = {
     app.post('/updateGcmToken', isAuthenticated , controllers.contact.updateGcmToken);  
 
 
-     app.get('/getGroupsList', isAuthenticated , controllers.group.getGroupsList);  
+    app.get('/getGroupsList', isAuthenticated , controllers.group.getGroupsList);
+
+
+    app.post('/pickBasicJewel', isAuthenticated , controllers.game.pickBasicJewel);  
+    app.post('/placeJewel', isAuthenticated , controllers.game.placeJewel);
+
+    app.get('/gameBoardUpdate', isAuthenticated , controllers.game.gameBoardUpdate);
 
 
     
