@@ -49,6 +49,28 @@ Groups.getGroupsList = function(req, res) {
 };
 
 
+Groups.createGroup = function(req, res) {
+
+
+};
+
+
+Groups.addMember = function(req, res) {
+
+
+};
+
+
+Groups.leaveGroup = function(req, res) {
+
+
+};
+
+
+
+
+
+
 
 
 

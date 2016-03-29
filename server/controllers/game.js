@@ -16,7 +16,6 @@ var luckycounter = 0;
 var Game = module.exports;
 
 
-
 Game.pickBasicJewel = function(req, res){
 
 	var type = req.body.type;
@@ -200,11 +199,24 @@ Game.placeJewel = function(req, res){
 
 				if(gift === 'Y'){
 
+					process.nextTick(function(){
+
+						//Insert int Y_TRANSACTION
+
+					});
+
+
 					return res.json({ 'A': rows[0].A, 'B': rows[0].B, 'C': rows[0].C, 'D': rows[0].D, 
 					'Y': rows[0].Y, 'Z': rows[0].Z, 'LEVEL': rows[0].level , 'XP_MAX': rows[0].xp_max, 'XP': rows[0].xp,
 					 'levelchange': levelchange, 'gift': gift, 'count': rows[0].Y , 'board': rows[0].board, 'board_state': rows[0].board_state  });
 
 				}else if(gift === 'Z'){
+
+					process.nextTick(function(){
+
+						//Insert int Z_TRANSACTION
+						
+					});
 
 					return res.json({ 'A': rows[0].A, 'B': rows[0].B, 'C': rows[0].C, 'D': rows[0].D, 
 					'Y': rows[0].Y, 'Z': rows[0].Z, 'LEVEL': rows[0].level , 'XP_MAX': rows[0].xp_max, 'XP': rows[0].xp,

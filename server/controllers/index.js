@@ -5,7 +5,8 @@ var controllers = module.exports = {
   registrar: require('./registration'),
   contact: require('./contact'),
   group: require('./group'),
-  game: require('./game')
+  game: require('./game'),
+  market: require('./market')
   
     	
 };
