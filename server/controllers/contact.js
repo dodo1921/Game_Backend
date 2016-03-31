@@ -64,13 +64,13 @@ Contact.getContactById = function(req, res) {
 
 
 
-Contact.getGameState = function(req, res) {
-
-	
+Contact.getGameState = function(req, res) {	
 
 	//var querytext = 'SELECT "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h"  FROM "Users" where "id"=($1)';
 
-	return res.json({ 'success': true, 'user': req.user });
+	var curr_time = new Date().getTime();
+
+	return res.json({ 'success': true, 'user': req.user, 'time': curr_time });
 
 
 };

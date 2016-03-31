@@ -104,8 +104,10 @@ Registrar.verifyCode = function(req, res, next) {
         
         req.logIn(user, function(err) {      
             if (err) res.status(500).json({ 'success' : false, data: err});
+
+            var curr_time = new Date().getTime();
             //console.log(user);
-            return res.json({ 'success' : true, 'request': 'verifyCode', 'user': user, 'groups': info}); 
+            return res.json({ 'success' : true, 'request': 'verifyCode', 'user': user, 'time': curr_time }); 
         });
 		    
     })(req, res, next);;
